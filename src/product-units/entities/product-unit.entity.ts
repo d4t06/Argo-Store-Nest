@@ -13,7 +13,10 @@ export class ProductUnit {
   id: number;
 
   @Column()
-  name: string;
+  unit_name: string;
+
+  @Column()
+  unit_name_ascii: string;
 
   @Column()
   conversion_quantity: number;
@@ -32,4 +35,8 @@ export class ProductUnit {
   })
   @JoinColumn({ name: 'product_id' })
   product: Product;
+
+  constructor(item: Partial<Product>) {
+    Object.assign(this, item);
+  }
 }

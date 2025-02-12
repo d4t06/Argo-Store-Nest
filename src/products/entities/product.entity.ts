@@ -11,13 +11,16 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({name: "Products"})
+@Entity({ name: 'Products' })
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  product_name: string;
+
+  @Column()
+  product_name_ascii: string;
 
   @Column()
   image_url: string;
@@ -27,12 +30,6 @@ export class Product {
 
   @Column()
   stock_price: number;
-
-  @Column()
-  price: number;
-
-  @Column()
-  debt_price: string;
 
   @CreateDateColumn()
   created_at: Date;

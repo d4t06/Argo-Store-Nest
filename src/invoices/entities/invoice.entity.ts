@@ -1,3 +1,4 @@
+import { Customer } from 'src/customers/entities/customer.entity';
 import { InvoiceItem } from 'src/invoice-items/entities/invoice-item.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
@@ -17,6 +18,12 @@ export class Invoice {
 
   @Column()
   customer_id: number;
+  @ManyToOne(() => Customer, (cus) => cus.invoices, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
 
   @CreateDateColumn()
   created_at: Date;
@@ -32,4 +39,8 @@ export class Invoice {
 
   @OneToMany(() => InvoiceItem, (iItem) => iItem.invoice)
   items: InvoiceItem[];
+
+  constructor(item: Partial<Invoice>) {
+    Object.assign(this, item);
+  }
 }

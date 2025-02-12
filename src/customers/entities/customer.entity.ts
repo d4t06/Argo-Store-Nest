@@ -1,25 +1,33 @@
+import { Invoice } from 'src/invoices/entities/invoice.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity({ name: 'Customers' })
-export class Customers {
+export class Customer {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  customer_name: string;
 
   @Column()
-  phone_number: number;
+  customer_name_ascii: string;
+
+  @Column()
+  phone_number: string;
 
   @Column()
   address: string;
+
+  @OneToMany(() => Invoice, (invoice) => invoice.customer)
+  invoices: Invoice[];
 
   @Column()
   user_id: number;
@@ -29,4 +37,8 @@ export class Customers {
   })
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  constructor(item: Partial<Customer>) {
+    Object.assign(this, item);
+  }
 }

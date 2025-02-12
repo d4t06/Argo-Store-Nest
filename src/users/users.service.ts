@@ -12,31 +12,24 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async findOne(username: string) {
-    return await this.entityManager
-      .createQueryBuilder(User, 'user')
-      .where('user.username = :username', { username })
-      .getOne();
+  async findOne(phoneNumber: string) {
+    return await this.userRepository.findOne({
+      where: { phone_number: phoneNumber },
+    });
   }
 
   async addOne(user: CreateUserDto) {
     const foundedUser = await this.userRepository.findOne({
       where: {
-         phone_number: user.phone_number,
+        phone_number: user.phone_number,
       },
     });
 
-    console.log(foundedUser);
-  
-
-    if (foundedUser) throw new ConflictException('Username had taken');
+    if (foundedUser) throw new ConflictException('Phone number had taken');
 
     await this.userRepository.save(user);
 
-    // const newUser = new User(user);
-    // await this.entityManager.save(newUser);
-
-    return 'ok';
+    return 'Ok';
   }
 
   async updateFreshToken(newToken: string, username: string) {

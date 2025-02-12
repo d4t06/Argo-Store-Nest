@@ -1,4 +1,4 @@
-import { Customers } from 'src/customers/entities/customer.entity';
+import { Customer } from 'src/customers/entities/customer.entity';
 import { Invoice } from 'src/invoices/entities/invoice.entity';
 import { Product } from 'src/products/entities/product.entity';
 import { WarehouseEntry } from 'src/warehouse-entries/entities/warehouse-entry.entity';
@@ -14,6 +14,9 @@ export class User {
 
   @Column()
   password: string;
+
+  @Column()
+  store_name: string;
 
   @Column({
     default: '',
@@ -31,8 +34,8 @@ export class User {
   @OneToMany(() => Product, (product) => product.user)
   products: Product[];
 
-  @OneToMany(() => Customers, (customer) => customer.user)
-  customers: Customers[];
+  @OneToMany(() => Customer, (customer) => customer.user)
+  customers: Customer[];
 
   @OneToMany(() => WarehouseEntry, (warehouse) => warehouse.user)
   warehouse_entries: WarehouseEntry[];
