@@ -31,6 +31,7 @@ export class AuthService {
     return {
       token: newToken,
       storeName: foundedUser.store_name,
+      userId: foundedUser.id
     };
   }
 

@@ -4,7 +4,9 @@ export class CreateProductDto {
   @IsNotEmpty({ message: 'product_name is required' })
   product_name: string;
 
-  @IsNotEmpty({ message: 'product_name_ascii is required' })
+  @IsNotEmpty({ message: 'user_id is required' })
+  user_id: number;
+
   product_name_ascii: string;
 
   image_url: string;

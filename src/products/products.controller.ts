@@ -19,7 +19,7 @@ import { UpdateProductDto } from './dtos/update-product.dto';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('products')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class ProductsController {
 	constructor(private readonly productService: ProductsService) {}
 
