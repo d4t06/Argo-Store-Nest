@@ -36,7 +36,7 @@ export class ProductUnit {
   @JoinColumn({ name: 'product_id' })
   product: Product;
 
-  constructor(item: Partial<Product>) {
+  constructor(item: Partial<ProductUnit>) {
     Object.assign(this, item);
   }
 }

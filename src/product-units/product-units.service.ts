@@ -4,6 +4,7 @@ import { ProductUnit } from './entities/product-unit.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { CreateProductUnitDto } from './dtos/create-product-unit.dto';
 import { UpdateProductUnitDto } from './dtos/update-product-unit.dto';
+import { convertToEn } from 'src/utils/appHelper';
 
 @Injectable()
 export class ProductUnitsService {
@@ -15,14 +16,14 @@ export class ProductUnitsService {
 
 	
 
-	async create(createProductDto: CreateProductUnitDto) {
+	async create(dto: CreateProductUnitDto) {
 		const foundedProduct = await this.productUnitRepository.findOne({
-			where: { unit_name_ascii: createProductDto.unit_name_ascii },
+			where: { unit_name_ascii: convertToEn(dto.unit_name) },
 		});
 
 		if (foundedProduct) throw new ConflictException('Product name had taken');
 
-		const item = new ProductUnit(createProductDto);
+		const item = new ProductUnit(dto);
 		const newProduct = await this.productUnitRepository.save(item);
 
 		return newProduct;

@@ -1,11 +1,7 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class UpdateProductUnitDto {
-  @IsNotEmpty({ message: 'unit_name is required' })
-  unit_name: string;
+import {PartialType} from '@nestjs/mapped-types'
+import { CreateProductUnitDto } from './create-product-unit.dto';
 
-  @IsNotEmpty({ message: 'unit_name_ascii is required' })
-  unit_name_ascii: string;
 
-  image_url: string;
-}
+export class UpdateProductUnitDto extends PartialType(CreateProductUnitDto) {}
