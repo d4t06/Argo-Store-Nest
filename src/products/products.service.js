@@ -71,12 +71,16 @@ let ProductsService = class ProductsService {
         return [];
     }
     async create(createProductDto) {
+        const productNameAscii = (0, appHelper_1.convertToEn)(createProductDto.product_name);
         const foundedProduct = await this.productRepository.findOne({
-            where: { product_name_ascii: (0, appHelper_1.convertToEn)(createProductDto.product_name) },
+            where: { product_name_ascii: productNameAscii },
         });
         if (foundedProduct)
             throw new common_1.ConflictException('Product name had taken');
-        const item = new product_entity_1.Product(createProductDto);
+        const item = new product_entity_1.Product({
+            ...createProductDto,
+            product_name_ascii: productNameAscii,
+        });
         const newProduct = await this.productRepository.save(item);
         return newProduct;
     }

@@ -7,10 +7,7 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.setGlobalPrefix('api');
     app.useGlobalPipes(new common_1.ValidationPipe());
-    app.enableCors({
-        credentials: true,
-        origin: ['http://localhost:8081'],
-    });
+    app.enableCors({ credentials: true });
     const port = process.env.PORT || 4000;
     await app.listen(port, () => {
         console.log(`App running on port:${port}`);
