@@ -11,8 +11,9 @@ async function bootstrap() {
         credentials: true,
         origin: ['http://localhost:8081'],
     });
-    await app.listen(process.env.PORT || 4000, () => {
-        console.log(`App running on port:${process.env.PORT}`);
+    const port = process.env.PORT || 4000;
+    await app.listen(port, () => {
+        console.log(`App running on port:${port}`);
     });
 }
 bootstrap();
