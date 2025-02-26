@@ -20,10 +20,10 @@ export class Customer {
   @Column()
   customer_name_ascii: string;
 
-  @Column()
+  @Column({ nullable: true })
   phone_number: string;
 
-  @Column()
+  @Column({ nullable: true })
   address: string;
 
   @OneToMany(() => Invoice, (invoice) => invoice.customer)

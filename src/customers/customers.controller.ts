@@ -8,12 +8,8 @@ import {
 	Post,
 	Put,
 	Query,
-	UseGuards,
-	UsePipes,
-	ValidationPipe,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { CreateCustomerDto } from './dtos/create-customer.dto';
 import { UpdateCustomerDto } from './dtos/update-customer.dto';
 
@@ -41,15 +37,12 @@ export class CustomersController {
 
 	// POST /products
 	@Post()
-	@UseGuards(AuthGuard)
-	@UsePipes(ValidationPipe)
 	async create(@Body() dto: CreateCustomerDto) {
 		return await this.customerService.create(dto);
 	}
 
 	// POST /products
 	@Put(':id')
-	@UseGuards(AuthGuard)
 	async update(
 		@Body() updateDto: UpdateCustomerDto,
 		@Param('id', ParseIntPipe) id: number,
@@ -59,7 +52,6 @@ export class CustomersController {
 
 	// Delete /products
 	@Delete(':id')
-	@UseGuards(AuthGuard)
 	async delete(@Param('id', ParseIntPipe) id: number) {
 		await this.customerService.delete(id);
 	}

@@ -20,11 +20,8 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/login')
-  signIn(
-    @Body() dto: LoginDto,
-    //  @Res({ passthrough: true }) response: Response,
-  ) {
-    return this.authService.signIn(dto.username, dto.password);
+  signIn(@Body() dto: LoginDto) {
+    return this.authService.signIn(dto.phone_number, dto.password);
   }
 
   @Post('/register')

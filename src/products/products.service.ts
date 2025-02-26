@@ -12,7 +12,7 @@ import { CreateProductDto } from './dtos/create-product.dto';
 import { UpdateProductDto } from './dtos/update-product.dto';
 import { elementAt } from 'rxjs';
 
-const PAGE_SIZE = +process.env.PAGE_SIZE || 1;
+const PAGE_SIZE = +process.env.PAGE_SIZE || 30;
 
 @Injectable()
 export class ProductsService {
@@ -75,13 +75,18 @@ export class ProductsService {
 	}
 
 	async create(createProductDto: CreateProductDto) {
+		const productNameAscii = convertToEn(createProductDto.product_name);
+
 		const foundedProduct = await this.productRepository.findOne({
-			where: { product_name_ascii: createProductDto.product_name_ascii },
+			where: { product_name_ascii: productNameAscii },
 		});
 
 		if (foundedProduct) throw new ConflictException('Product name had taken');
 
-		const item = new Product(createProductDto);
+		const item = new Product({
+			...createProductDto,
+			product_name_ascii: productNameAscii,
+		});
 		const newProduct = await this.productRepository.save(item);
 
 		return newProduct;

@@ -5,9 +5,11 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 
 @Entity({ name: 'Product_Units' })
+@Unique('check_unique', ['product_id', 'unit_name_ascii'])
 export class ProductUnit {
   @PrimaryGeneratedColumn()
   id: number;
@@ -24,7 +26,7 @@ export class ProductUnit {
   @Column()
   price: number;
 
-  @Column()
+  @Column({ nullable: true })
   debt_price: number;
 
   @Column()

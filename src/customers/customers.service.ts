@@ -11,7 +11,7 @@ import { convertToEn } from 'src/utils/appHelper';
 import { UpdateCustomerDto } from './dtos/update-customer.dto';
 import { CreateCustomerDto } from './dtos/create-customer.dto';
 
-const PAGE_SIZE = +process.env.CUSTOMER_PAGE_SIZE || 10;
+const PAGE_SIZE = +process.env.CUSTOMER_PAGE_SIZE || 30;
 
 @Injectable()
 export class CustomersService {
@@ -43,9 +43,9 @@ export class CustomersService {
 		};
 	}
 
-	async findOne(productId: number) {
+	async findOne(customerId: number) {
 		const item = await this.customerRepository.findOne({
-			where: { id: productId },
+			where: { id: customerId },
 			relations: {
 				invoices: true,
 			},
@@ -77,7 +77,10 @@ export class CustomersService {
 
 		if (foundedItem) throw new ConflictException('Phone number had taken');
 
-		const item = new Customer(dto);
+		const item = new Customer({
+			...dto,
+			customer_name_ascii: dto.customer_name,
+		});
 		const newItem = await this.customerRepository.save(item);
 
 		return newItem;

@@ -4,11 +4,11 @@ export class CreateProductUnitDto {
   @IsNotEmpty({ message: 'unit_name is required' })
   unit_name: string;
 
-  // unit_name_ascii: string;
-
-  @IsNotEmpty({ message: 'unit_name_ascii is required' })
+  @IsNotEmpty({ message: 'conversion_quantity is required' })
+  @IsNumber()
   conversion_quantity: number;
 
-  // @IsNotEmpty({ message: 'unit_name_ascii is required' })
-  // product_id: number;
+  @IsNotEmpty({ message: 'price is required' })
+  @IsNumber()
+  price: number;
 }

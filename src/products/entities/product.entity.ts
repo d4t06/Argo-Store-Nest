@@ -9,9 +9,11 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 
 @Entity({ name: 'Products' })
+@Unique('check_unique', ['user_id', 'product_name_ascii'])
 export class Product {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,14 +24,17 @@ export class Product {
   @Column()
   product_name_ascii: string;
 
-  @Column()
+  @Column({ nullable: true })
   image_url: string;
 
-  @Column()
+  @Column({ nullable: true })
   image_path: string;
 
-  @Column()
+  @Column({ nullable: true })
   stock_price: number;
+
+  @Column({ nullable: true })
+  stock: number;
 
   @CreateDateColumn()
   created_at: Date;

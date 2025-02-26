@@ -25,13 +25,13 @@ export class ProductsController {
 
 	// GET /products
 	@Get()
-	findAll(@Query('page') page: number = 1, @Query('user_id') userId:string) {
+	findAll(@Query('page') page: number = 1, @Query('user_id') userId: string) {
 		return this.productService.findAll(page, userId);
 	}
 
 	// GET /products/search
 	@Get('search')
-	search(@Query('q') q: string, @Query('user_id') userId:string) {
+	search(@Query('q') q: string, @Query('user_id') userId: string) {
 		return this.productService.search(q, userId);
 	}
 
@@ -43,7 +43,7 @@ export class ProductsController {
 
 	// POST /products
 	@Post()
-	@UsePipes(ValidationPipe)
+	// @UsePipes(new ValidationPipe())
 	async create(@Body() product: CreateProductDto) {
 		const newProduct = await this.productService.create(product);
 		return newProduct;
